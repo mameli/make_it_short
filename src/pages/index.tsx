@@ -6,44 +6,72 @@ export default function Home() {
   const [shortened, setShortened] = useState<string>("");
   const [streamEnded, setStreamEnded] = useState(false);
 
+  type ollamaResponse = {
+    model: string;
+    response: string;
+    done: boolean;
+  };
+
+  function parseStreamData(value: Uint8Array | undefined, concatenatedResponse: string) {
+    try {
+      const jsonData: ollamaResponse = JSON.parse(
+        new TextDecoder().decode(value)
+      ) as ollamaResponse;
+
+      console.log(jsonData);
+
+      if (jsonData.done) {
+        setStreamEnded(true);
+      } else {
+        concatenatedResponse += jsonData.response;
+        setShortened(concatenatedResponse);
+      }
+    } catch (error) {
+      console.error("Error parsing JSON:", error);
+    }
+    return concatenatedResponse
+  }
+
   const handleSummaryCall = async () => {
     const inputData = {
       model: "llama2",
       prompt: text,
     };
-
+  
     let concatenatedResponse = "";
-
-    const response = await fetch("http://localhost:11434/api/generate", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(inputData),
-    });
-    const reader = response.body.getReader();
-
-    while (!streamEnded) {
-      const { value, done } = await reader.read();
-      if (done) {
-        setStreamEnded(true);
-        break;
+  
+    try {
+      const response = await fetch("http://localhost:11434/api/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(inputData),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
+  
+      const reader = response.body?.getReader();
+      if (reader) {
+        while (!streamEnded) {
+          const { value, done } = await reader.read();
+          if (done) {
+            setStreamEnded(true);
 
-      try {
-        const jsonData = JSON.parse(new TextDecoder().decode(value));
-        if (jsonData.done) {
-          setStreamEnded(true);
-        } else {
-          console.log(jsonData.response);
-          concatenatedResponse += jsonData.response;
-          setShortened(concatenatedResponse);
+            break
+          }
+          concatenatedResponse = parseStreamData(value, concatenatedResponse);
         }
-      } catch (error) {
-        console.error("Error parsing JSON:", error);
       }
+    } catch (error) {
+      console.error("Fetch failed:", error);
     }
+  
     setStreamEnded(false);
+
+    
   };
 
   return (
