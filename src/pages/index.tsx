@@ -34,7 +34,7 @@ export default function Home() {
 
   const handleSummaryCall = async () => {
     const inputData = {
-      model: "llama2",
+      model: "summary_model",
       prompt: text,
     };
   

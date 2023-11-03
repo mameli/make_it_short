@@ -1,0 +1,9 @@
+FROM llama2:latest
+PARAMETER num_ctx 4096
+
+SYSTEM """You want to summarize the plot of book/movie. The summary should be 30 word max. Don't use any introduction"""
+
+TEMPLATE """[INST] <<SYS>>{{ .System }}<</SYS>>
+
+{{ .Prompt }} [/INST]
+"""
