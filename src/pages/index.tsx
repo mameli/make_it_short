@@ -63,6 +63,7 @@ export default function Home() {
             break
           }
           concatenatedResponse = parseStreamData(value, concatenatedResponse);
+          await new Promise((resolve) => setTimeout(resolve, 100));
         }
       }
     } catch (error) {
@@ -106,7 +107,7 @@ export default function Home() {
               Shorten it!
             </button>
             <div className="flex max-w-screen-sm flex-col">
-              <h1 className="text-2xl font-extrabold tracking-tight text-white">
+              <h1 className="text-2xl font-extrabold tracking-tight text-white text-center">
                 {shortened}
               </h1>
             </div>
