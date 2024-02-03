@@ -90,7 +90,7 @@ export default function Home() {
           <div className="flex min-w-full max-w-none flex-col items-center justify-center gap-4">
             <textarea
               className="w-1/2 rounded-md px-4 py-2 text-xl font-semibold text-black focus:outline-none"
-              placeholder="Text to summarize"
+              placeholder="Movie/Book to summarize"
               value={text}
               onChange={(e) => setText(e.target.value)}
               onKeyDown={async (e) => {
