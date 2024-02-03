@@ -1,6 +1,8 @@
 # Make it short
 
-I came across Ollama(https://ollama.ai/) and developed a web app. It took me:
+This is a simple web app that uses the LLama model from Ollama to summarize text. It is a simple example of how to use the Ollama API to create a web app.
+
+I came across Ollama(https://ollama.ai/) and developed this web app. It took me:
 - 5 minutes to configure #LLama 2 with a prompt
 - 5 minutes for the backend call
 - 2 hours to make the page appealing for a LinkedIn post
