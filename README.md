@@ -2,6 +2,8 @@
 
 This is a simple web app that uses the LLama model from Ollama to summarize text. It is a simple example of how to use the Ollama API to create a web app.
 
+<img title="example screen" alt="app screenshot" src="public/screen.png">
+
 I came across Ollama(https://ollama.ai/) and developed this web app. It took me:
 - 5 minutes to configure #LLama 2 with a prompt
 - 5 minutes for the backend call
@@ -27,9 +29,6 @@ ollama create summary_model -f ./Modelfile
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-
-<img title="example screen" alt="app screenshot" src="public/screen.png">
 
 ## Create T3 App
 
