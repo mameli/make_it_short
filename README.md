@@ -27,6 +27,8 @@ ollama create summary_model -f ./Modelfile
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 
+<img title="example screen" alt="app screenshot" src="public/screen.png">
+
 ## Create T3 App
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
